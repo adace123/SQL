@@ -46,6 +46,9 @@ FROM world a
 WHERE name = (SELECT name FROM world b WHERE a.continent = b.continent LIMIT 1)
 
 --9
+SELECT name, continent, population 
+FROM world a
+WHERE population > ALL(SELECT population FROM world b WHERE a.continent = b.continent and population > 25000000)
 
 --10
 SELECT name, continent
