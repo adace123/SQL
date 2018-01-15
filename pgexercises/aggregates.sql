@@ -78,4 +78,17 @@ GROUP BY facid, name
 ORDER BY facid;
 
 -- List each member's first booking after September 1st 2012
+SELECT surname, firstname, memid, MIN(starttime)
+FROM cd.members NATURAL JOIN cd.bookings
+WHERE starttime >= '09-01-2012'
+GROUP BY memid
+ORDER BY memid;
 
+-- Produce a list of member names, with each row containing the total member count
+SELECT *
+FROM (SELECT COUNT(*) FROM cd.members) A, (SELECT firstname, surname FROM cd.members) B;
+
+-- Produce a numbered list of members
+SELECT ROW_NUMBER() OVER(ORDER BY joindate), firstname, surname FROM cd.members;
+
+-- Output the facility id that has the highest number of slots booked, again
